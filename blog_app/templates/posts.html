@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Posts - Blog App{% endblock %}
+{% block content %}
+    <div class="mycard">
+    <h1>Posts List</h1>
+    {% for p in posts %}
+        <h4>
+            <a href="{% url 'post_page' slug=p.slug %}"> Title: {{p.title}} </a>
+        </h4>
+        <h4>Body: {{p.body}}</h4>
+        <h4>Create Date: {{p.created_at}} by {{p.author}}</h4>
+        <hr>
+    {% endfor %}
+    </div>
+{% endblock %}

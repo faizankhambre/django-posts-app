@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Login - Blog App{% endblock %}
+
+{% block content %}
+<style>
+    .register-container {
+        max-width: 500px;
+        width: 90%;
+        margin: 40px auto;
+        padding: 25px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .register-container h2 {
+        text-align: center;
+        color: #375BDC;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
+
+    .non-field-errors {
+        color: red;
+        font-weight: bold;
+        margin-bottom: 15px;
+        background-color: #ffe5e5;
+        padding: 10px;
+        border: 1px solid #ffb3b3;
+        border-radius: 5px;
+    }
+
+    .register-container button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background: linear-gradient(to right, #375BDC, #4D70EF);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .register-container button:hover {
+        opacity: 0.95;
+    }
+</style>
+
+<div class="register-container">
+    <h2>User Login</h2>
+    <form action="/login/" method="post" novalidate>
+        {% csrf_token %}
+
+        {# Non-field errors (e.g. password mismatch, user exists, etc.) #}
+        {% if form.non_field_errors %}
+            <div class="non-field-errors">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error-message">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if req.GET.next%}
+            <input type="hidden" value="{{req.GET.next}}" />
+        {% endif %} 
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Blog App{% endblock %}
+
+{% block content %}
+    <div class="mycard">
+        <h1>Home</h1>
+        <h4>Check out my <a href="{% url 'about' %}" class="text-decoration-none">About</a> page</h4>
+    </div>
+{% endblock %}
